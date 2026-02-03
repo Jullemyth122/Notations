@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big O Notation Examples in JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        pre {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 12px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .demo {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 12px;
+            margin: 16px 0;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Big O Notation Examples in JavaScript</h1>
+
+    <h2>O(1) — Constant Time</h2>
+    <p>Operation takes the same time regardless of input size (e.g., array index access).</p>
+    <pre><code>
+        function getFirstElement(arr) {
+            return arr[0]; // Always 1 operation
+        }
+    </code></pre>
+    <div class="demo" id="o1-demo"></div>
+    <pre><code>
+        function getUserAge(userId) {
+            const user = userDatabase[userId];
+            return user ? user.age : null; // Lookup + optional property access — always constant
+        }
+    </code></pre>
+    <div class="demo" id="o1-demo2"></div>
+    <pre><code>
+        function isBanned(ip) {
+            return bannedIPs.has(ip); // Single hash lookup — constant time
+        }
+    </code></pre>
+    <div class="demo" id="o1-demo3"></div>
+    <pre><code>
+        function stackOperation(stack, operation, value = null) {
+            if (operation === "push") {
+                stack.push(value);              // O(1) amortized
+                return stack;
+            } else if (operation === "pop") {
+                return stack.pop();             // O(1) amortized
+            }
+        }
+    </code></pre>
+    <div class="demo" id="o1-demo4"></div>
+    <pre><code>
+        function calculateTax(priceObj) {
+            const basePrice = priceObj.amount;
+            const rate = priceObj.isLuxury ? 0.20 : 0.10;  // Conditional — constant
+            const tax = basePrice * rate;                  // Arithmetic — constant
+            const total = basePrice + tax + priceObj.shipping; // More constants
+
+            return {
+                tax: tax.toFixed(2),
+                total: total.toFixed(2)
+            };
+        }
+    </code></pre>
+    <div class="demo" id="o1-demo5"></div>
+
+    <h2>O(log n) — Logarithmic Time</h2>
+    <p>Search space is halved each step (e.g., binary search on sorted array).</p>
+    <pre><code>
+        function binarySearch(arr, target) {
+            let left = 0;
+            let right = arr.length - 1;
+
+            while (left <= right) {
+                const mid = Math.floor((left + right) / 2);
+                if (arr[mid] === target) return mid;
+                if (arr[mid] < target) left = mid + 1;
+                else right = mid - 1;
+            }
+            return -1;
+        }
+    </code></pre>
+    <div class="demo" id="ologn-demo"></div>
+    <pre><code>
+        // O(log n) - Integer square root via binary search
+        // Finds the largest integer whose square is <= n
+        function integerSquareRoot(n) {
+            if (n < 0) return -1;
+            if (n === 0 || n === 1) return n;
+
+            let left = 1;
+            let right = n;
+            let result = 0;
+
+            while (left <= right) {
+                const mid = Math.floor((left + right) / 2);
+                // Use division to avoid overflow
+                if (mid <= n / mid) {
+                    result = mid;
+                    left = mid + 1;     // Try larger
+                } else {
+                    right = mid - 1;    // Too big
+                }
+            }
+            return result;
+        }
+        // Halves the range [1..n] each step → O(log n)
+
+    </code></pre>
+    <div class="demo" id="ologn-demo2"></div>
+    <pre><code>
+        // O(log n) - Fast exponentiation (binary exponentiation)
+        // Computes base^exp efficiently
+        function fastPow(base, exp) {
+            if (exp === 0) return 1;
+            if (exp === 1) return base;
+
+            let result = 1;
+            let currentBase = base;
+            let currentExp = exp;
+
+            while (currentExp > 0) {
+                if (currentExp % 2 === 1) {
+                    result *= currentBase;  // Odd exponent: multiply result
+                }
+                currentBase *= currentBase;  // Square the base
+                currentExp = Math.floor(currentExp / 2);  // Halve the exponent
+            }
+            return result;
+        }
+        // Halves exponent each step → O(log exp)
+
+    </code></pre>
+    <div class="demo" id="ologn-demo3"></div>
+    <pre><code>
+        // O(log n) - Find peak element in bitonic array
+        // A bitonic array increases then decreases
+        function findPeak(arr) {
+            let left = 0;
+            let right = arr.length - 1;
+
+            while (left < right) {
+                const mid = Math.floor((left + right) / 2);
+                if (arr[mid] < arr[mid + 1]) {
+                    left = mid + 1;     // Peak is in right half
+                } else {
+                    right = mid;        // Peak is in left half (or is mid)
+                }
+            }
+            return left; // left === right at peak
+        }
+        // Halves the search space each step → O(log n)
+
+    </code></pre>
+    <div class="demo" id="ologn-demo4"></div>
+    <pre><code>
+        // O(log n) - Search in rotated sorted array
+        // Array is sorted but rotated at unknown pivot
+        function searchRotated(arr, target) {
+            let left = 0;
+            let right = arr.length - 1;
+
+            while (left <= right) {
+                const mid = Math.floor((left + right) / 2);
+                if (arr[mid] === target) return mid;
+
+                // Check which half is sorted
+                if (arr[left] <= arr[mid]) {  // Left half is sorted
+                    if (target >= arr[left] && target < arr[mid]) {
+                        right = mid - 1;  // Target in left sorted half
+                    } else {
+                        left = mid + 1;   // Target in right half
+                    }
+                } else {  // Right half is sorted
+                    if (target > arr[mid] && target <= arr[right]) {
+                        left = mid + 1;   // Target in right sorted half
+                    } else {
+                        right = mid - 1;  // Target in left half
+                    }
+                }
+            }
+            return -1;
+        }
+        // Each step eliminates half the array → O(log n)
+
+    </code></pre>
+    <div class="demo" id="ologn-demo5"></div>
+
+    <h2>O(n) — Linear Time</h2>
+    <p>Time grows linearly with input size (e.g., linear search).</p>
+    <pre><code>
+        function linearSearch(arr, target) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] === target) return i;
+            }
+            return -1;
+        }
+    </code></pre>
+    <div class="demo" id="on-demo"></div>
+
+    <h2>O(n log n) — Linearithmic Time</h2>
+    <p>Typical for efficient sorting algorithms (built-in sort and merge sort).</p>
+    <pre><code>// Built-in sort
+        function sortArray(arr) {
+            return arr.slice().sort((a, b) => a - b);
+        }
+
+        // Merge sort implementation
+        function mergeSort(arr) {
+            if (arr.length <= 1) return arr;
+            const mid = Math.floor(arr.length / 2);
+            const left = mergeSort(arr.slice(0, mid));
+            const right = mergeSort(arr.slice(mid));
+            return merge(left, right);
+        }
+
+        function merge(left, right) {
+            let result = [];
+            let i = 0, j = 0;
+            while (i < left.length && j < right.length) {
+                if (left[i] <= right[j]) {
+                    result.push(left[i++]);
+                } else {
+                    result.push(right[j++]);
+                }
+            }
+            return result.concat(left.slice(i)).concat(right.slice(j));
+        }   
+    </code></pre>
+    <div class="demo" id="onlogn-demo"></div>
+
+    <h2>O(n²) — Quadratic Time</h2>
+    <p>Nested loops over the input (e.g., bubble sort).</p>
+    <pre><code>
+        function bubbleSort(arr) {
+    const n = arr.length;
+    for (let i = 0; i < n - 1; i++) {
+        for (let j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+            }
+        }
+    }
+    return arr;
+}</code></pre>
+    <div class="demo" id="on2-demo"></div>
+
+    <h2>O(2ⁿ) — Exponential Time</h2>
+    <p>Each step branches into two recursive calls (e.g., naive Fibonacci).</p>
+    <pre><code>function fibonacciExponential(n) {
+    if (n <= 1) return n;
+    return fibonacciExponential(n - 1) + fibonacciExponential(n - 2);
+}</code></pre>
+    <div class="demo" id="o2n-demo"></div>
+
+    <h2>O(n!) — Factorial Time</h2>
+    <p>Generates all permutations (grows extremely fast).</p>
+    <pre><code>function permutations(arr) {
+    const result = [];
+
+    function heapPermute(arr, n = arr.length) {
+        if (n === 1) {
+            result.push(arr.slice());
+            return;
+        }
+
+        for (let i = 0; i < n; i++) {
+            heapPermute(arr, n - 1);
+            if (n % 2 === 1) {
+                [arr[0], arr[n - 1]] = [arr[n - 1], arr[0]];
+            } else {
+                [arr[i], arr[n - 1]] = [arr[n - 1], arr[i]];
+            }
+        }
+    }
+
+    heapPermute(arr);
+    return result;
+}</code></pre>
+    <div class="demo" id="onfact-demo"></div>
+
+    <h2>Summary Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Big O</th>
+                <th>Name</th>
+                <th>Typical Examples</th>
+                <th>Growth (n=100)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>O(1)</td><td>Constant</td><td>Array access</td><td>1 operation</td></tr>
+            <tr><td>O(log n)</td><td>Logarithmic</td><td>Binary search</td><td>~7 operations</td></tr>
+            <tr><td>O(n)</td><td>Linear</td><td>Linear search</td><td>100 operations</td></tr>
+            <tr><td>O(n log n)</td><td>Linearithmic</td><td>Merge sort, quicksort</td><td>~664 operations</td></tr>
+            <tr><td>O(n²)</td><td>Quadratic</td><td>Bubble sort</td><td>10,000 operations</td></tr>
+            <tr><td>O(2ⁿ)</td><td>Exponential</td><td>Naive Fibonacci</td><td>~1.27×10³⁰ operations</td></tr>
+            <tr><td>O(n!)</td><td>Factorial</td><td>Permutations</td><td>~9.33×10¹⁵⁷ operations</td></tr>
+        </tbody>
+    </table>
+
+    <script src="constant.js"></script>
+</body>
+</html>

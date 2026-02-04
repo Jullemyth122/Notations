@@ -233,6 +233,139 @@
         }
     </code></pre>
     <div class="demo" id="on-demo"></div>
+    <pre><code>
+        // O(n) - Linear time
+        // Linear search — checks each element once in the worst case
+        function linearSearch(arr, target) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] === target) return i;
+            }
+            return -1;
+        }
+    </code></pre>
+    <div class="demo" id="on-demo2"></div>
+    <pre><code>
+        // O(n) - linear time 
+        // find max element in an array
+        function findMax(arr) {
+            let max = arr[0];
+            for (let i = 1; i < arr.length; i++) {
+                if (arr[i] > max) {
+                    max = arr[i];
+                }
+            }
+            return max;
+        }
+
+        // Time: O(n) - one iteration through the entire array
+        // Space: O(1) - only one variable to store the max value
+    </code></pre>
+    <div class="demo" id="on-demo3"></div>
+    <pre><code>
+        // O(n) - linear time
+        // find the sum of all elements in an array
+        function findSum(arr) {
+            let sum = 0;
+            for (let i = 0; i < arr.length; i++) {
+                sum += arr[i];
+            }
+            return sum;
+        }
+
+        // Time: O(n) - one iteration through the entire array
+        // Space: O(1) - only one variable to store the sum
+    </code></pre>
+    <div class="demo" id="on-demo4"></div>
+    <pre><code>
+        // O(n) - linear time
+        // Swaps elements from both ends moving towards the center
+        function reverseArray(arr) {
+            let left = 0;
+            let right = arr.length - 1;
+            while (left < right) {
+                [arr[left], arr[right]] = [arr[right], arr[left]];
+                left++;
+                right--;
+            }
+            return arr;
+        }
+
+        // Time: O(n) - one iteration through the entire array
+        // Space: O(1) - only one variable to store the left and right pointers
+    </code></pre>
+    <div class="demo" id="on-demo5"></div>
+    <pre><code>
+        // O(n) - linear time
+        // Scans the entire array and increments counter when match is found
+        function countOccurrences(arr, target) {
+            let count = 0;
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] === target) {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        // Time: O(n) - one iteration through the entire array
+        // Space: O(1) - only one variable to store the count
+    </code></pre>
+    <div class="demo" id="on-demo6"></div>
+    <pre><code>
+        // O(n) - linear time, space O(n) 
+        // Create a copy of the array and reverse it
+        function reverseArrayCopy(arr) {
+            return arr.slice().reverse();
+        }
+
+        // Time: O(n) - one iteration through the entire array
+        // Space: O(n) - creates a copy of the array
+    </code></pre>
+    <div class="demo" id="on-demo7"></div>
+    <pre><code>
+        // O(n) - linear time, space O(n)
+        // Reverse an array by building a new array (instead of in-place swapping)
+        function reverseArrayNew(arr) {
+            const reversed = [];
+            for (let i = arr.length - 1; i >= 0; i--) {
+                reversed.push(arr[i]);
+            }
+            return reversed;
+        }
+
+        // Time: O(n) - one iteration through the entire array
+        // Space: O(n) - creates a new array of the same size
+    </code></pre>
+    <div class="demo" id="on-demo8"></div>
+    <pre><code>
+        // O(n) - linear time, space O(n)
+        // Count the frequency of each element in an array 
+        function frequencyCounter(arr) {
+            const frequency = {};
+            for (let i = 0; i < arr.length; i++) {
+                frequency[arr[i]] = (frequency[arr[i]] || 0) + 1;
+            }
+            return frequency;
+        }
+
+        // Time: O(n) - one iteration through the entire array
+        // Space: O(n) - creates a new object to store the frequency
+    </code></pre>
+    <div class="demo" id="on-demo9"></div>
+    <pre><code>
+        // O(n) time, O(n) space
+        // Convert string to uppercase by creating a new string
+        // (Strings are immutable in JS, so any transformation creates new space)
+        function toUpperCase(str) {
+            let result = '';
+            for (let i = 0; i < str.length; i++) {
+                result += str[i].toUpperCase();
+            }
+            return result;
+        }
+        // Time: O(n) — processes each character once
+        // Space: O(n) — builds a new string of length n
+    </code></pre>
 
     <h2>O(n log n) — Linearithmic Time</h2>
     <p>Typical for efficient sorting algorithms (built-in sort and merge sort).</p>

@@ -172,6 +172,114 @@ function linearSearch(arr, target) {
     return -1;
 }
 
+// O(n) - linear time 
+// find max element in an array
+function findMax(arr) {
+    let max = arr[0];
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
+
+// Time: O(n) - one iteration through the entire array
+// Space: O(1) - only one variable to store the max value
+
+// O(n) - linear time
+// find the sum of all elements in an array
+function findSum(arr) {
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+// Time: O(n) - one iteration through the entire array
+// Space: O(1) - only one variable to store the sum
+
+// O(n) - linear time
+// Swaps elements from both ends moving towards the center
+function reverseArray(arr) {
+    let left = 0;
+    let right = arr.length - 1;
+    while (left < right) {
+        [arr[left], arr[right]] = [arr[right], arr[left]];
+        left++;
+        right--;
+    }
+    return arr;
+}
+
+// Time: O(n) - one iteration through the entire array
+// Space: O(1) - only one variable to store the left and right pointers
+
+// O(n) - linear time
+// Scans the entire array and increments counter when match is found
+function countOccurrences(arr, target) {
+    let count = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === target) {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Time: O(n) - one iteration through the entire array
+// Space: O(1) - only one variable to store the count
+
+// O(n) - linear time, space O(n) 
+// Create a copy of the array and reverse it
+function reverseArrayCopy(arr) {
+    return arr.slice().reverse();
+}
+
+// Time: O(n) - one iteration through the entire array
+// Space: O(n) - creates a copy of the array
+
+// O(n) - linear time, space O(n)
+// Reverse an array by building a new array (instead of in-place swapping)
+function reverseArrayNew(arr) {
+    const reversed = [];
+    for (let i = arr.length - 1; i >= 0; i--) {
+        reversed.push(arr[i]);
+    }
+    return reversed;
+}
+
+// Time: O(n) - one iteration through the entire array
+// Space: O(n) - creates a new array of the same size
+
+// O(n) - linear time, space O(n)
+// Count the frequency of each element in an array 
+function frequencyCounter(arr) {
+    const frequency = {};
+    for (let i = 0; i < arr.length; i++) {
+        frequency[arr[i]] = (frequency[arr[i]] || 0) + 1;
+    }
+    return frequency;
+}
+
+// Time: O(n) - one iteration through the entire array
+// Space: O(n) - creates a new object to store the frequency
+
+// O(n) time, O(n) space
+// Convert string to uppercase by creating a new string
+// (Strings are immutable in JS, so any transformation creates new space)
+function toUpperCase(str) {
+    let result = '';
+    for (let i = 0; i < str.length; i++) {
+        result += str[i].toUpperCase();
+    }
+    return result;
+}
+// Time: O(n) — processes each character once
+// Space: O(n) — builds a new string of length n
+
+
 // O(n log n) - Linearithmic time
 // Efficient sorting (JavaScript's built-in sort is typically O(n log n))
 function sortArray(arr) {
@@ -257,6 +365,13 @@ const sortedTestArr = [1, 3, 5, 7, 9, 11];
 const findPeakArr = [17, 33, 26, 11, 55, 111];
 const rotatedSearchArr = [7, 10, 23, 13, 22, 41];
 
+const findMaxArr = [15, 13, 16, 40, 26, 33, 45, 23, 88, 87, 12];
+const findSumArr = [13, 11, 12, 8, 44, 22, 12, 7];
+const reverseArr = [11, 26, 19, 18, 27, 33, 22, 11];
+const countOccurrencesArr = [1, 1, 17, 18, 2, 33, 22, 11, 26, 19, 3, 2, 11];
+const frequencyArr = [1, 16, 3, 3, 2, 2, 111, 11, 1, 2, 33, 66, 55, 22, 11, 33, 27, 28, 19, 23];
+const stringCase = "Hello World";
+
 document.getElementById('o1-demo').innerHTML = `
             <strong>Demo:</strong><br>
             Input: [10, 20, 30, 40]<br>
@@ -319,6 +434,46 @@ document.getElementById('on-demo').innerHTML = `
             <strong>Demo:</strong><br>
             Array: [10, 20, 30, 40, 50]<br>
             linearSearch(..., 30) → index <strong>${linearSearch([10, 20, 30, 40, 50], 30)}</strong>
+        `;
+document.getElementById('on-demo2').innerHTML = `
+            <strong>Demo:</strong><br>
+            Array: [15, 13, 16, 40, 26, 33, 45, 23, 88, 87, 12]<br>
+            findMax([1  5, 13, 16, 40, 26, 33, 45, 23, 88, 87, 12]) → <strong>${findMax([15, 13, 16, 40, 26, 33, 45, 23, 88, 87, 12])}</strong>
+        `;
+document.getElementById('on-demo3').innerHTML = `
+            <strong>Demo:</strong><br>
+            Array: [${findSumArr.join(', ')}]<br>
+            findSum(${findSumArr.join(', ')}, 30) → <strong>${findSum(findSumArr, 30)}</strong>
+        `;
+document.getElementById('on-demo4').innerHTML = `
+            <strong>Demo:</strong><br>
+            Array: [${reverseArr.join(', ')}]<br>
+            reverseArray(${reverseArr.join(', ')}) → <strong>${reverseArray(reverseArr)}</strong>
+        `;
+document.getElementById('on-demo5').innerHTML = `
+            <strong>Demo:</strong><br>
+            Array: [${countOccurrencesArr.join(', ')}]<br>
+            countOccurrences(${countOccurrencesArr.join(', ')}, 11) → <strong>${countOccurrences(countOccurrencesArr, 11)}</strong>
+        `;
+document.getElementById('on-demo6').innerHTML = `
+            <strong>Demo:</strong><br>
+            Array: [${reverseArr.join(', ')}]<br>
+            reverseArrayCopy(${reverseArr.join(', ')}) → <strong>${reverseArrayCopy(reverseArr)}</strong>
+        `;
+document.getElementById('on-demo7').innerHTML = `
+            <strong>Demo:</strong><br>
+            Array: [${reverseArr.join(', ')}]<br>
+            reverseArrayNew(${reverseArr.join(', ')}) → <strong>${reverseArrayNew(reverseArr)}</strong>
+        `;
+document.getElementById('on-demo8').innerHTML = `
+            <strong>Demo:</strong><br>
+            Array: [${frequencyArr.join(', ')}]<br>
+            frequencyCounter(${frequencyArr.join(', ')}) → <strong>${frequencyCounter(frequencyArr)}</strong>
+        `;
+document.getElementById('on-demo9').innerHTML = `
+            <strong>Demo:</strong><br>
+            String Case: [${stringCase}]<br>
+            toUpperCase(${stringCase}) → <strong>${toUpperCase(stringCase)}</strong>
         `;
 
 document.getElementById('onlogn-demo').innerHTML = `
